@@ -143,12 +143,11 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
         print '\n'.join(input_files_R2)
         print '\n'
         
-	if len(input_files_R2)
-    
         if len(input_files_R1) != len(input_files_R2):
 	    if len(input_files_R2) == 0:
 		print 'There are no second pair reads: we assume this is an unpaired case'
 		unpaired = True
+                import pdb; pdb.set_trace()
 	    else:
                 return 'Unequal numbers of files assigned as R1 and R2. Check naming convention. Exiting...'
     
@@ -305,7 +304,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
 	        else:
 		    temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
 	
-	         temp_str  = temp_str + ' > ' + sam_name
+	        temp_str  = temp_str + ' > ' + sam_name
             
                 print temp_str
             
