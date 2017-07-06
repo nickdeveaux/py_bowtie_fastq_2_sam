@@ -224,19 +224,16 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
     #run bowtie on the paired files for the data_species first
     #find the correct bowtie2 index
     print 'Data_species set to: ' + data_species
-    if data_species == 'hg19':
-        bowtie2_data_index = '/shared/biodata/ngs/Reference/iGenomes/Homo_sapiens/UCSC/hg19/Sequence/Bowtie2Index/genome'
+    if data_species == 'hg38':
+        bowtie2_data_index = '/mnt/ceph/users/ndeveaux/reference/genome-versions/gencode24/GRCh38.primary_assembly.genome.fa'
     
     elif data_species == 'dm6':
-        bowtie2_data_index = '/shared/biodata/ngs/Reference/iGenomes/Drosophila_melanogaster/UCSC/dm6/Sequence/Bowtie2Index/genome'
+        bowtie2_data_index = '/mnt/ceph/users/ndeveaux/reference/genome-versions/dm6/dm6.fa'
+       
+    elif data_species == 'mm10':
+            bowtie2_data_index = '/mnt/xfs1/bioinfo/data/Illumina/Mus_musculus/UCSC/mm10/Sequence/Bowtie2Index/genome.fa'
         
-    elif data_species == 'sacCer3':
-        bowtie2_data_index = '/shared/biodata/ngs/Reference/iGenomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/Bowtie2Index/genome'
-        
-    elif data_species == 'mm9':
-            bowtie2_data_index = '/shared/biodata/ngs/Reference/iGenomes/Mus_musculus/UCSC/mm9/Sequence/Bowtie2Index/genome'
-        
-    elif data_species not in ['hg19', 'dm6', 'sacCer3', 'mm9']:
+    elif data_species not in ['dm6', 'mm10']:
         return 'Bowtie index unavailable for this species, need to create bowtie index separately'
     
     print 'Bowtie index for data files found at:'
