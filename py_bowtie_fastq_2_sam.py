@@ -246,7 +246,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
             + ' -x ' + bowtie2_data_index 
 	    
 	    if unpaired:
-	        temp_str = temp_str + '-U' + input_files_R1[i]
+	        temp_str = temp_str + ' -U ' + input_files_R1[i]
 	    else:
 		temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
 	
@@ -264,7 +264,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
             + ' -x ' + bowtie2_data_index 
 	
 	    if unpaired:
-	        temp_str = temp_str + '-U' + input_files_R1[i]
+	        temp_str = temp_str + ' -U ' + input_files_R1[i]
 	    else:
 		temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
 	
@@ -295,7 +295,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
                 temp_str = 'bowtie2 --local --very-sensitive-local --no-unal --no-mixed --no-discordant -q --phred33 -I 10 -X 700 --threads 12' \
                 + ' -x ' + bowtie2_spike_index 
 		if unpaired:
-	            temp_str = temp_str + '-U' + input_files_R1[i]
+	            temp_str = temp_str + ' -U ' + input_files_R1[i]
 	        else:
 		    temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
 	
@@ -314,7 +314,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
                 + ' -x ' + bowtie2_spike_index 
 		
 		if unpaired:
-    		    temp_str = temp_str + '-U' + input_files_R1[i]
+    		    temp_str = temp_str + ' -U ' + input_files_R1[i]
                 else:
                     temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
                 temp_str = temp_str + ' >> ' + sam_name
