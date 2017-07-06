@@ -26,10 +26,9 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
     
     Defaulted output sam filename: PS_HsDm_CTCF_1m.sam (i.e. data.sam )
     
-    Currently supported bowtie2Index: human hg19 (type 'hg19')
+    Currently supported bowtie2Index: human hg38 (type 'hg38')
                                       Drosophila dm6 (type 'dm6')
-                                      Budding yeast (type 'sacCer3')
-                                      mouse mm9 (type 'mm9')
+                                      mouse mm10 (type 'mm10')
     ____________________
     Parameters:
     
@@ -71,10 +70,6 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
     }
     unpaired = False
     startTime = datetime.now()
-    
-    print 'WARNING: bowtie2 must be loaded into rhino terminal before invoking jupyter instance'\
-    ' by typing: module load bowtie2/2.2.5'
-    print
     
     #change directory as instructed
     if folder != None:
