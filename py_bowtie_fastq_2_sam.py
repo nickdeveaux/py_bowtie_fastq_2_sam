@@ -69,7 +69,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
 	   'dm6': '/mnt/ceph/users/ndeveaux/reference/genome-versions/dm6/dm6.fa',
 	   'mm10': '/mnt/xfs1/bioinfo/data/Illumina/Mus_musculus/UCSC/mm10/Sequence/Bowtie2Index/genome.fa'
     }
-    
+    unpaired = False
     startTime = datetime.now()
     
     print 'WARNING: bowtie2 must be loaded into rhino terminal before invoking jupyter instance'\
@@ -142,11 +142,17 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
         print 'Files assigned as R2:'
         print '\n'.join(input_files_R2)
         print '\n'
+        
+	if len(input_files_R2)
     
         if len(input_files_R1) != len(input_files_R2):
-            return 'Unequal numbers of files assigned as R1 and R2. Check naming convention. Exiting...'
+	    if len(input_files_R2) == 0:
+		print 'There are no second pair reads: we assume this is an unpaired case'
+		unpaired = True
+	    else:
+                return 'Unequal numbers of files assigned as R1 and R2. Check naming convention. Exiting...'
     
-        if (len(input_files_R1) + len(input_files_R2)) != len(input_files):
+        elif (len(input_files_R1) + len(input_files_R2)) != len(input_files):
             return 'Not all of input files assigned as R1 or R2. Exiting...'
     
     if manual_entry==True:
@@ -243,8 +249,14 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
             print '\n'
             #create string for system command
             temp_str = 'bowtie2 --local --very-sensitive-local --no-unal --no-mixed --no-discordant -q --phred33 -I 10 -X 700 --threads 12' \
-            + ' -x ' + bowtie2_data_index + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] + ' > ' + sam_name
-            
+            + ' -x ' + bowtie2_data_index 
+	    
+	    if unpaired:
+	        temp_str = temp_str + '-U' + input_files_R1[i]
+	    else:
+		temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
+	
+	    temp_str = temp_str + ' > ' + sam_name
             print temp_str
             
             check_output(temp_str, shell=True)
@@ -255,8 +267,14 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
             print 'count = ' +str(i)
             print '\n'
             temp_str = 'bowtie2 --no-head --local --very-sensitive-local --no-unal --no-mixed --no-discordant -q --phred33 -I 10 -X 700 --threads 12' \
-            + ' -x ' + bowtie2_data_index + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] + ' >> ' + sam_name
-            
+            + ' -x ' + bowtie2_data_index 
+	
+	    if unpaired:
+	        temp_str = temp_str + '-U' + input_files_R1[i]
+	    else:
+		temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
+	
+	    temp_str = temp_str + ' >> ' + sam_name
             
             check_output(temp_str, shell=True)
             print temp_str
@@ -281,7 +299,13 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
                 print '\n'
                 #create string for system command
                 temp_str = 'bowtie2 --local --very-sensitive-local --no-unal --no-mixed --no-discordant -q --phred33 -I 10 -X 700 --threads 12' \
-                + ' -x ' + bowtie2_spike_index + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] + ' > ' + sam_name_spike
+                + ' -x ' + bowtie2_spike_index 
+		if unpaired:
+	            temp_str = temp_str + '-U' + input_files_R1[i]
+	        else:
+		    temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
+	
+	         temp_str  = temp_str + ' > ' + sam_name
             
                 print temp_str
             
@@ -293,8 +317,13 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
                 print 'count = ' +str(i)
                 print '\n'
                 temp_str = 'bowtie2 --no-head --local --very-sensitive-local --no-unal --no-mixed --no-discordant -q --phred33 -I 10 -X 700 --threads 12' \
-                + ' -x ' + bowtie2_spike_index + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] + ' >> ' + sam_name_spike
-            
+                + ' -x ' + bowtie2_spike_index 
+		
+		if unpaired:
+    		    temp_str = temp_str + '-U' + input_files_R1[i]
+                else:
+                    temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
+                temp_str = temp_str + ' >> ' + sam_name
             
                 check_output(temp_str, shell=True)
                 print temp_str
