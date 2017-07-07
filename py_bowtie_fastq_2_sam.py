@@ -64,9 +64,9 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
     
     """
     bowtieIndices = {
-	   'hg38': '/mnt/ceph/users/ndeveaux/reference/genome-versions/gencode24/GRCh38.primary_assembly.genome.fa',
-	   'dm6': '/mnt/ceph/users/ndeveaux/reference/genome-versions/dm6/dm6.fa',
-	   'mm10': '/mnt/xfs1/bioinfo/data/Illumina/Mus_musculus/UCSC/mm10/Sequence/Bowtie2Index/genome.fa'
+	   'hg38': '/mnt/ceph/users/ndeveaux/reference/genome-versions/gencode24/GRCh38.primary_assembly.genome',
+	   'dm6': '/mnt/ceph/users/ndeveaux/reference/genome-versions/dm6/Drosophila_melanogaster/UCSC/dm6/Sequence/BowtieIndex/genome',
+	   'mm10': '/mnt/xfs1/bioinfo/data/Illumina/Mus_musculus/UCSC/mm10/Sequence/Bowtie2Index/genome'
     }
     unpaired = False
     startTime = datetime.now()
@@ -142,7 +142,6 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
 	    if len(input_files_R2) == 0:
 		print 'There are no second pair reads: we assume this is an unpaired case'
 		unpaired = True
-                import pdb; pdb.set_trace()
 	    else:
                 return 'Unequal numbers of files assigned as R1 and R2. Check naming convention. Exiting...'
     
