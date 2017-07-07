@@ -299,7 +299,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
 	        else:
 		    temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
 	
-	        temp_str  = temp_str + ' > ' + sam_name
+	        temp_str  = temp_str + ' > ' + sam_name_spike
             
                 print temp_str
             
@@ -317,7 +317,7 @@ def py_bowtie_fastq_2_sam(input_type='fastq.gz', manual_entry=False, list_R1=[],
     		    temp_str = temp_str + ' -U ' + input_files_R1[i]
                 else:
                     temp_str = temp_str + ' -1 ' + input_files_R1[i] + ' -2 ' + input_files_R2[i] 
-                temp_str = temp_str + ' >> ' + sam_name
+                temp_str = temp_str + ' >> ' + sam_name_spike
             
                 check_output(temp_str, shell=True)
                 print temp_str
